@@ -1,6 +1,7 @@
 *~
 *.pyc
 /env
-
+*.log
+/logs
 # localsettings, secret ...
 
