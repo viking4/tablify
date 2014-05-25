@@ -2,42 +2,10 @@
 
 {% block title %}Index{% endblock %}
 
-{% block head %}
-{{ super() }}
+{% block content %}
+Soon...
 {% endblock %}
 
-{% block content %}
-<div id="table">
-</div>
-<script>
- $(document).ready(function (){
-   var data = [
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6],
-     [1, 2, 3, 4, 5, 6]
-   ];
-
-   $('#table').handsontable({
-     data: data,
-     minSpareRows: 1
-   });
-   $("#table table").addClass("table");
-   $("#table table").addClass("table-hover");
- });
-</script>
+{% block script %}
+{{ super() }}
 {% endblock %}

@@ -11,6 +11,13 @@ class Root(FlaskView):
         return render_template('root.html')
 
 
+class Try(FlaskView):
+    
+    def a1(self):
+        return render_template('a1.html')
+
+
 # URL rules
 Root.register(app)
+Try.register(app)
 
