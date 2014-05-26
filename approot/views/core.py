@@ -1,7 +1,9 @@
 from flask import request, render_template
+from flask import jsonify
 from flask.ext.classy import FlaskView, route
 
-from approot import app, utils
+from approot import app
+from approot.utils import TableManager
 
 
 class Root(FlaskView):
@@ -25,16 +27,18 @@ class TableApi(FlaskView):
     /api/table/<id>       POST/GET
     '''
     route_base = '/api/table/'
+    tm = TableManager()
 
     def get(self, table_id):
-        return '*GET'
+        table_data = tm.get_table(table_id)
+        return jsonify(table_data)
 
     def post(self, table_id):
         if table_id == 'create':
-            x = utils.create_table(request.json)
-
+            new_table_id = tm.create_table(request.json)
             return '*NEW'
         else:
+            tm.update_table(table_id, request.json)
             return '*POST'
 
 
