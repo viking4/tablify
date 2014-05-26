@@ -20,6 +20,8 @@ class Try(FlaskView):
     def b1(self):
         return render_template('b1.html')
 
+    def b1(self, table_id):
+        return render_template('b1_table.html', table_id=table_id)
 
 class TableApi(FlaskView):
     '''
@@ -30,15 +32,15 @@ class TableApi(FlaskView):
     tm = TableManager()
 
     def get(self, table_id):
-        table_data = tm.get_table(table_id)
-        return jsonify(table_data)
+        table_data = self.tm.get_table(table_id)
+        return jsonify(table_data) if table_data else jsonify({'found': False})
 
     def post(self, table_id):
         if table_id == 'create':
-            new_table_id = tm.create_table(request.json)
-            return '*NEW'
+            new_table_id = self.tm.create_table(request.json)
+            return unicode(new_table_id)
         else:
-            tm.update_table(table_id, request.json)
+            self.tm.update_table(table_id, request.json)
             return '*POST'
 
 

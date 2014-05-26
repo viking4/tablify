@@ -33,7 +33,7 @@ class TableManager:
         es.index(index=self.ES_INDEX, doc_type=self.ES_DOC_TYPE, id=table_id, body=data)
         return table_id
 
-    def get_table(table_id):
+    def get_table(self, table_id):
         # table_id: either integer or string or unicode
         try:
             res = es.get_source(index=self.ES_INDEX, doc_type=self.ES_DOC_TYPE, id=table_id)

@@ -1,0 +1,81 @@
+{# May unify with b1.html #}
+
+{% extends "base.html" %}
+
+{% block title %}B1 - Table {{ request.view_args.get('table_id') }}{% endblock %}
+
+{% block content %}
+Table ID: {{ request.view_args.get('table_id') }}
+<div>
+  <button id="btn_save" class="btn btn-primary">Save</button>
+  <button id="btn_save_as" class="btn btn-default">Save as a new table</button>
+  <button id="" class="btn btn-default">Clear all</button>
+</div>
+<div id="main_table" class="table table-hover">
+</div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+  $(function (){
+    $.ajax({
+      url:'/api/table/' + "{{ request.view_args.get('table_id') }}",
+      dataType: 'json',
+      type: 'GET',
+      success: function(res) {
+        console.log(res.table);
+        $('#main_table').handsontable({
+          data: res.table,
+          minSpareRows: 1
+        });
+        console.log('Data loaded');
+      }
+    });
+
+    //$('#main_table').refreshPositions();
+  });
+
+  $('#btn_save').click(function() {
+    // Post data to server.
+    var table_data = $('#main_table').handsontable('getData');
+
+    var post_data = {
+      'table': table_data,
+    }
+
+    $.ajax({
+      url: '/api/table/' + "{{ request.view_args.get('table_id') }}",
+      type: 'POST',
+      contentType: 'application/json;charset=UTF-8',
+      data: JSON.stringify(post_data),
+      success: function(res) {
+        console.log('Success callback.');
+      },
+    });
+  });
+
+  $('#btn_save_as').click(function() {
+    var table_data = $('#main_table').handsontable('getData');
+    //console.log(new_data);
+
+    var post_data = {
+      'table': table_data,
+    }
+    // Post data to server, then redirect to new url of the new table.
+    $.ajax({
+      url: '/api/table/create',
+      type: 'POST',
+      contentType: 'application/json;charset=UTF-8',
+      data: JSON.stringify(post_data),
+      success: function(res) {
+        console.log('Success callback.');
+        console.log(res);
+        // TODO: support older browsers
+        window.history.pushState('idk', '', res);
+      },
+    });
+  });
+
+</script>
+{% endblock %}
