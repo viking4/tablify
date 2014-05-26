@@ -28,7 +28,7 @@ class TableManager:
         if li == 0:
             return -1
         lj = len(data['table'][0])
-        data['table'] = map(lambda row: map(unicode, row), data['table'])
+        data['table'] = map(lambda row: map(lambda cell: unicode(cell) if cell else '', row), data['table'])
 
         es.index(index=self.ES_INDEX, doc_type=self.ES_DOC_TYPE, id=table_id, body=data)
         return table_id
