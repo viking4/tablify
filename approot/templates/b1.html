@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}B1{% endblock %}
+
+{% block content %}
+<div>
+  <button id="btn_save" class="btn btn-primary">Save</button>
+  <button id="btn_save_as" class="btn btn-default">Save as a new table</button>
+  <button id="" class="btn btn-default">Clear all</button>
+</div>
+<div id="main_table" class="table table-hover">
+</div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+  $(function (){
+    var table_data = [
+      [1, 2, 3],
+      [2, 2, 3]
+    ];
+
+    $('#main_table').handsontable({
+      data: table_data,
+      minSpareRows: 1
+    });
+    //$('#main_table').refreshPositions();
+  });
+
+  $('#btn_save').click(function() {
+    // Post data to server.
+    //~ $.ajax({
+      //~ url: '/api/<id>',
+      //~ type: 'POST',
+    //~ });
+
+  });
+
+  $('#btn_save_as').click(function() {
+    var table_data = $('#main_table').handsontable('getData');
+    //console.log(new_data);
+
+    var post_data = {
+      'table_data': table_data,
+    }
+    // Post data to server, then redirect to new url of the new table.
+    $.ajax({
+      url: '/api/table/create',
+      type: 'POST',
+      contentType: 'application/json;charset=UTF-8',
+      data: JSON.stringify(post_data),
+      success: function(res) {
+        alert(JSON.stringify(res));
+        if (res.status == 200) {
+          console.log('Reached server.');
+        }
+      },
+    });
+
+  });
+
+</script>
+{% endblock %}
