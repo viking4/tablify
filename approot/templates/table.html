@@ -43,7 +43,7 @@ Table ID: <span class="table_id">{{ request.view_args.get('table_id') }}</span>
     }
 
     $.ajax({
-      url: '/api/table/' + "{{ request.view_args.get('table_id') }}",
+      url: '/api/table/' + $('.table_id').text(),
       type: 'POST',
       contentType: 'application/json;charset=UTF-8',
       data: JSON.stringify(post_data),
