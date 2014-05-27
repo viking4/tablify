@@ -2,12 +2,13 @@
 <html>
   <head>
     {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.handsontable.full.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.handsontable.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+
     <script src="{{ url_for('static', filename='js/jquery-2.1.1.min.js') }}"> </script>
     <script src="{{ url_for('static', filename='js/jquery.handsontable.full.js') }}"> </script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     <title>{% block title %}{% endblock %} - Tablify </title>
     {% endblock %}
