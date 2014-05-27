@@ -1,13 +1,11 @@
-{# May unify with b1.html #}
-
 {% extends "base.html" %}
 
-{% block title %}B1 - Table {{ request.view_args.get('table_id') }}{% endblock %}
+{% block title %}Table {{ request.view_args.get('table_id') }}{% endblock %}
 
 {% block content %}
-Table ID: {{ request.view_args.get('table_id') }}
+Table ID: <span class="table_id">{{ request.view_args.get('table_id') }}</span>
 <div>
-  <button id="btn_save" class="btn btn-primary">Save</button>
+  <button id="btn_save" {% if not request.view_args.get('table_id') %} disabled="disabled" {% endif %} class="btn btn-primary">Save</button>
   <button id="btn_save_as" class="btn btn-default">Save as a new table</button>
   <button id="" class="btn btn-default">Clear all</button>
 </div>
@@ -73,6 +71,8 @@ Table ID: {{ request.view_args.get('table_id') }}
         console.log(res);
         // TODO: support older browsers
         window.history.pushState('idk', '', res);
+        $('.table_id').text(res);
+        $('#btn_save').removeAttr("disabled");
       },
     });
   });

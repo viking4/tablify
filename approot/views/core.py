@@ -10,18 +10,16 @@ class Root(FlaskView):
     route_base = '/'
 
     def index(self):
-        return render_template('b1.html')
+        return render_template('root.html')
 
 
-class Try(FlaskView):
-    def a1(self):
-        return render_template('a1.html')
+class Table(FlaskView):
+    def index(self):
+        return render_template('table.html')
 
-    def b1(self):
-        return render_template('b1.html')
+    def get(self, table_id):
+        return render_template('table.html')
 
-    def b1(self, table_id):
-        return render_template('b1_table.html', table_id=table_id)
 
 class TableApi(FlaskView):
     '''
@@ -47,5 +45,5 @@ class TableApi(FlaskView):
 
 # URL rules
 Root.register(app)
-Try.register(app)
+Table.register(app)
 TableApi.register(app)
