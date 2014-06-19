@@ -7,7 +7,7 @@ Table ID: <span class="table_id">{{ request.view_args.get('table_id') }}</span>
 <div>
   <button id="btn_save" {% if not request.view_args.get('table_id') %} disabled="disabled" {% endif %} class="btn btn-primary">Save</button>
   <button id="btn_save_as" class="btn btn-default">Save as a new table</button>
-  <button id="" class="btn btn-default">Clear all</button>
+  <button id="btn_clear" class="btn btn-default">Clear all</button>
 </div>
 <div id="main_table" class="table table-hover">
 </div>
@@ -55,7 +55,6 @@ Table ID: <span class="table_id">{{ request.view_args.get('table_id') }}</span>
 
   $('#btn_save_as').click(function() {
     var table_data = $('#main_table').handsontable('getData');
-    //console.log(new_data);
 
     var post_data = {
       'table': table_data,
@@ -78,6 +77,20 @@ Table ID: <span class="table_id">{{ request.view_args.get('table_id') }}</span>
           alert('Empty table is not saved.');
         }
       },
+    });
+  });
+
+  $('#btn_clear').click(function() {
+    var table_data = $('#main_table').handsontable('getData');
+    var table_data = table_data.map(function(row) {
+      return row.map(function(elem) { return ' ';});
+    });
+    console.log(table_data.length);
+    console.log(table_data);
+
+    $('#main_table').handsontable({
+      data: table_data,
+      minSpareRows: 0
     });
   });
 
